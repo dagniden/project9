@@ -1,5 +1,7 @@
 """Модуль содержит функции для работы с новыми возможностями приложения"""
 
+from datetime import datetime
+
 from src import masks
 
 
@@ -17,8 +19,9 @@ def mask_account_card(account_card: str) -> str:
         return f"{prefix} {masked_card}"
 
 
-def get_date(datetime: str) -> str:
-    pass
+def get_date(date_time: str) -> str:
+    dt = datetime.fromisoformat(date_time)
+    return dt.strftime("%d.%m.%Y")
 
 
 if __name__ == "__main__":
@@ -36,3 +39,6 @@ if __name__ == "__main__":
     for item in test_account_cards:
         print(mask_account_card(item))
     pass
+
+    test_date = "2024-03-11T02:26:18.671407"
+    print(get_date(test_date))
