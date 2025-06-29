@@ -1,6 +1,6 @@
 """Модуль содержит функции для работы с новыми возможностями приложения"""
 
-import masks
+from src import masks
 
 
 def mask_account_card(account_card: str) -> str:
@@ -22,14 +22,16 @@ def get_date(datetime: str) -> str:
 
 
 if __name__ == "__main__":
-    test_account_cards = ["Maestro 1596837868705199",
-                          "Счет 64686473678894779589",
-                          "MasterCard 7158300734726758",
-                          "Счет 35383033474447895560",
-                          "Visa Classic 6831982476737658",
-                          "Visa Platinum 8990922113665229",
-                          "Visa Gold 5999414228426353",
-                          "Счет 73654108430135874305"]
+    test_account_cards = [
+        "Maestro 1596837868705199",
+        "Счет 64686473678894779589",
+        "MasterCard 7158300734726758",
+        "Счет 35383033474447895560",
+        "Visa Classic 6831982476737658",
+        "Visa Platinum 8990922113665229",
+        "Visa Gold 5999414228426353",
+        "Счет 73654108430135874305",
+    ]
 
     for item in test_account_cards:
         print(mask_account_card(item))

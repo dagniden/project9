@@ -19,7 +19,7 @@ def get_mask_card_number(card_number: int) -> str:
         str: Маска номера карты в формате XXXX XX** **** XXXX.
     """
     card_number_str = str(card_number)
-    blocks = [card_number_str[i:i + 4] for i in range(0, 13, 4)]
+    blocks = [card_number_str[i : i + 4] for i in range(0, 13, 4)]
     blocks[1] = blocks[1][0:2] + "**"
     blocks[2] = "****"
     return " ".join(blocks)
