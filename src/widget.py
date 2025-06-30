@@ -20,11 +20,13 @@ def mask_account_card(account_card: str) -> str:
 
 
 def get_date(date_time: str) -> str:
+    """"""
     dt = datetime.fromisoformat(date_time)
     return dt.strftime("%d.%m.%Y")
 
 
 if __name__ == "__main__":
+    # Тестирование функций модуля
     test_account_cards = [
         "Maestro 1596837868705199",
         "Счет 64686473678894779589",
