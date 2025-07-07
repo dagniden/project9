@@ -7,9 +7,9 @@ def filter_by_state(transactions_list: list[dict], state: str = "EXECUTED") -> l
     return filtered_transactions
 
 
-def sort_by_date(transactions_list: list[dict], ascending: bool = False) -> list[dict]:
+def sort_by_date(transactions_list: list[dict], descending: bool = True) -> list[dict]:
     """Возвращает новый список словарей, отсортированный по ключу date"""
-    sorted_transactions_list = sorted(transactions_list, key=lambda x: x["date"], reverse=not ascending)
+    sorted_transactions_list = sorted(transactions_list, key=lambda x: x["date"], reverse=descending)
     return sorted_transactions_list
 
 
@@ -31,8 +31,8 @@ if __name__ == "__main__":
     for item in filtered_data:
         print(item)
 
-    ascending = False
-    sorted_data = sort_by_date(test_data, ascending)
-    print(f"\nДанные после сортировки, {ascending=}: ")
+    descending = True
+    sorted_data = sort_by_date(test_data, descending)
+    print(f"\nДанные после сортировки, {descending=}: ")
     for item in sorted_data:
         print(item)
