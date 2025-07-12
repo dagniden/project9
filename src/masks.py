@@ -18,4 +18,4 @@ if __name__ == "__main__":
     # Запуск функций модуля с тестовыми данными
     masked_account = get_mask_account(73654108430135874305)
     masked_card_num = get_mask_card_number(7000792289606361)
-    print(f"{masked_account=}, {masked_card_num=}")
+    print(f"{masked_account=}\n{masked_card_num=}")
