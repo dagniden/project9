@@ -8,7 +8,8 @@ ACC_NUMBER_LENGTH = 20
 
 def generate_card_number() -> int:
     """Возвращает строку с номером карты"""
-    new_card = [str(random.randint(0, 9)) for x in range(CARD_NUMBER_LENGTH)]
+    first_digit = str(random.randint(1, 9))
+    new_card = [first_digit if x == 0 else str(random.randint(0, 9)) for x in range(CARD_NUMBER_LENGTH)]
     return int("".join(new_card))
 
 
@@ -20,7 +21,8 @@ def get_sample_cards(quantity: int) -> tuple:
 
 def generate_account_number() -> int:
     """Возвращает строку с номером аккаунта"""
-    new_account = [str(random.randint(0, 9)) for x in range(ACC_NUMBER_LENGTH)]
+    first_digit = str(random.randint(1, 9))
+    new_account = [first_digit if x == 0 else str(random.randint(0, 9)) for x in range(ACC_NUMBER_LENGTH)]
     return int("".join(new_account))
 
 
