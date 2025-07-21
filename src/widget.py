@@ -9,7 +9,7 @@ def mask_account_card(account_string: str) -> str:
     """Принимает номер счета или номер карты и возвращает замаскированный номер счета или номер карты"""
     account_digits_list = [x for x in account_string if x.isdigit()]
     account_digits = int("".join(account_digits_list))
-    account_prefix = "".join([x for x in account_string if x.isalpha() or x == " "])
+    account_prefix = "".join([x for x in account_string if x.isalpha() or x == " "]).strip()
 
     if "Счет" in account_prefix:
         masked_account = masks.get_mask_account(account_digits)
