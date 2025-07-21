@@ -33,7 +33,7 @@ def get_sample_accounts(quantity: int) -> tuple:
 
 
 @pytest.fixture
-def transactions():
+def transactions() -> list:
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
         {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
@@ -43,7 +43,7 @@ def transactions():
 
 
 @pytest.fixture
-def account_cards():
+def account_cards() -> list:
     return [
         "Maestro 1596837868705199",
         "Счет 64686473678894779589",

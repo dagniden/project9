@@ -3,7 +3,7 @@
 from src.processing import filter_by_state, sort_by_date
 
 
-def test_filter_by_state(transactions):
+def test_filter_by_state(transactions: list) -> None:
 
     # Проверяем работу параметра по умолчанию
     executed_transactions = filter_by_state(transactions)
@@ -19,7 +19,7 @@ def test_filter_by_state(transactions):
     assert isinstance(canceled_transactions, list)
 
 
-def test_sort_by_date(transactions):
+def test_sort_by_date(transactions: list) -> None:
     transactions_amount = len(transactions)
     transactions_dates_list = [item.get("date") for item in transactions]
     min_date = min(transactions_dates_list)

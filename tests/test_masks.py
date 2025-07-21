@@ -1,5 +1,7 @@
 """Модуль с автотестами для src.masks"""
 
+from typing import Type
+
 import pytest
 
 from src.masks import get_mask_account, get_mask_card_number
@@ -25,18 +27,17 @@ def test_get_mask_account(account: int) -> None:
     assert str(account)[-4:] in result
 
 
-@pytest.mark.parametrize("card, expected_error", [
-                                                ("1", TypeError),
-                                                (0, IndexError),
-                                                ("", TypeError),
-                                                ("a12345", TypeError)]
+@pytest.mark.parametrize(
+    "card, expected_error", [("1", TypeError), (0, IndexError), ("", TypeError), ("a12345", TypeError)]
 )
-def test_get_mask_card_number_invalid(card, expected_error):
+def test_get_mask_card_number_invalid(card: int, expected_error: Type[BaseException]) -> None:
     with pytest.raises(expected_error):
         get_mask_card_number(card)
 
 
-@pytest.mark.parametrize("account, expected_error", [(1, IndexError), ("1", TypeError), (0, IndexError), ("", TypeError)])
-def test_get_mask_account_invalid(account, expected_error):
+@pytest.mark.parametrize(
+    "account, expected_error", [(1, IndexError), ("1", TypeError), (0, IndexError), ("", TypeError)]
+)
+def test_get_mask_account_invalid(account: int, expected_error: Type[BaseException]) -> None:
     with pytest.raises(expected_error):
         get_mask_account(account)
