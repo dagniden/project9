@@ -1,9 +1,8 @@
+from typing import Type
+
 import pytest
 
 from src.widget import get_date, mask_account_card
-from tests.conftest import get_sample_accounts, get_sample_cards
-
-RANDOM_TESTS_AMOUNT = 100
 
 
 @pytest.mark.parametrize(
@@ -21,3 +20,16 @@ RANDOM_TESTS_AMOUNT = 100
 )
 def test_mask_account_card(account_card: str, expected: str) -> None:
     assert mask_account_card(account_card) == expected
+
+
+@pytest.mark.parametrize(
+    "account_card, expected",
+    [
+        ("", ValueError),
+        (1596837868705199, TypeError),
+        ([], ValueError),
+    ],
+)
+def test_mask_account_card_invalid(account_card: str, expected: Type[BaseException]) -> None:
+    with pytest.raises(expected):
+        assert mask_account_card(account_card) == expected

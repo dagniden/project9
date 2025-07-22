@@ -7,6 +7,10 @@ from src import masks
 
 def mask_account_card(account_string: str) -> str:
     """Принимает номер счета или номер карты и возвращает замаскированный номер счета или номер карты"""
+
+    if account_string == "":
+        raise ValueError
+
     account_digits_list = [x for x in account_string if x.isdigit()]
     account_digits = int("".join(account_digits_list))
     account_prefix = "".join([x for x in account_string if x.isalpha() or x == " "]).strip()

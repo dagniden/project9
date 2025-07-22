@@ -64,15 +64,3 @@ def account_cards() -> list:
         "Visa Gold 5999414228426353",
         "Счет 73654108430135874305",
     ]
-
-
-if __name__ == "__main__":
-
-    cards = get_sample_cards(10)
-    print(type(cards))
-    for i in cards:
-        print(i)
-
-    accounts = get_sample_accounts(10)
-    for i in accounts:
-        print(i)
