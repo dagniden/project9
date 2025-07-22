@@ -33,3 +33,26 @@ def test_mask_account_card(account_card: str, expected: str) -> None:
 def test_mask_account_card_invalid(account_card: str, expected: Type[BaseException]) -> None:
     with pytest.raises(expected):
         assert mask_account_card(account_card) == expected
+
+
+@pytest.mark.parametrize(
+    "date, expected",
+    [
+        ("2024-03-31T02:26:18.671407", "31.03.2024"),
+        ("2024-03-30", "30.03.2024"),
+    ],
+)
+def test_get_date(date: str, expected: str) -> None:
+    assert get_date(date) == expected
+
+
+@pytest.mark.parametrize(
+    "date, expected_error",
+    [
+        ("", ValueError),
+        (1, ValueError),
+    ],
+)
+def test_get_date_invalid(date: str, expected_error: Type[BaseException]) -> None:
+    with pytest.raises(expected_error):
+        assert get_date(date)
