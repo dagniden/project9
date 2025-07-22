@@ -18,6 +18,10 @@ def test_filter_by_state(transactions: list) -> None:
     assert result_states_set == {"CANCELED"}
     assert isinstance(canceled_transactions, list)
 
+    # Проверка, что при с параметром, которого нет в словаре
+    not_filtered_transactions = filter_by_state(transactions, "ABCD")
+    assert not_filtered_transactions == []
+
 
 def test_sort_by_date(transactions: list) -> None:
     transactions_amount = len(transactions)
