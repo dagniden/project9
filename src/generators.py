@@ -1,4 +1,7 @@
-def card_number_generator(start: int, end: int):
+from typing import Generator
+
+
+def card_number_generator(start: int, end: int) -> Generator[str, None, None]:
     for item in range(start, end):
         card_nums = str(item)
         nums_len = len(card_nums)
@@ -10,16 +13,16 @@ def card_number_generator(start: int, end: int):
         yield card
 
 
-def split_groups(text, size):
+def split_groups(text: str, size: int) -> list[str]:
     iterations = int(len(text) / size)
-    return [text[i * size: (i + 1) * size] for i in range(iterations)]
+    return [text[i * size : (i + 1) * size] for i in range(iterations)]
 
 
-def transaction_descriptions():
+def transaction_descriptions() -> None:
     pass
 
 
-def filter_by_currency():
+def filter_by_currency() -> None:
     pass
 
 

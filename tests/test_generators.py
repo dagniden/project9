@@ -1,9 +1,9 @@
 import pytest
 
-from src.generators import card_number_generator, transaction_descriptions, filter_by_currency
+from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
-def test_card_number_generator():
+def test_card_number_generator() -> None:
     start = 1
     end = 4
     cards = card_number_generator(start, end)
@@ -14,9 +14,9 @@ def test_card_number_generator():
         assert next(cards)
 
 
-def test_transaction_descriptions():
+def test_transaction_descriptions() -> None:
     transaction_descriptions()
 
 
-def test_filter_by_currency():
+def test_filter_by_currency() -> None:
     filter_by_currency()
