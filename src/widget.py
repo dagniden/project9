@@ -27,6 +27,6 @@ def get_date(date_time: str) -> str:
     """На вход принимает строку с датой в ISO формате и возвращает строку в формате ДД.ММ.ГГГГ"""
     try:
         dt = datetime.fromisoformat(date_time)
-    except:
-        raise ValueError
+    except (ValueError, TypeError):
+        raise ValueError(f"Некорректный формат даты: {date_time}")
     return dt.strftime("%d.%m.%Y")

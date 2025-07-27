@@ -17,10 +17,16 @@ def test_card_number_generator() -> None:
 def test_transaction_descriptions(transactions: list) -> None:
     descriptions = transaction_descriptions(transactions)
     assert all(isinstance(x, str) for x in descriptions)
-    assert all(isinstance(x, str) for x in descriptions)
+
+    empty_descriptions = transaction_descriptions([])
+    assert empty_descriptions == []
 
 
-def test_filter_by_currency(transactions: list[dict]) -> None:
-    usd_transactions = list(filter_by_currency(transactions, "USD"))
-    assert all(transaction["operationAmount"]["currency"]["code"] == "USD" for transaction in usd_transactions)
-    assert len(usd_transactions) == 3
+@pytest.mark.parametrize("test_code, expected_len", [("USD", 3), ("KZT", 0)])
+def test_filter_by_currency(transactions: list[dict], test_code: str, expected_len: int) -> None:
+    usd_transactions = list(filter_by_currency(transactions, test_code))
+    assert all(
+        transaction.get("operationAmount", {}).get("currency", {}).get("code", {}) == test_code
+        for transaction in usd_transactions
+    )
+    assert len(usd_transactions) == expected_len

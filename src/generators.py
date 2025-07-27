@@ -2,6 +2,7 @@ from typing import Generator
 
 
 def card_number_generator(start: int, end: int) -> Generator[str, None, None]:
+    """Генерирует номера карт от start до end, дополненные до 16 цифр и разделённые по 4."""
     for item in range(start, end):
         card_nums = str(item)
         nums_len = len(card_nums)
@@ -14,15 +15,18 @@ def card_number_generator(start: int, end: int) -> Generator[str, None, None]:
 
 
 def split_groups(text: str, size: int) -> list[str]:
+    """Разбивает текст на группы указанного размера."""
     iterations = int(len(text) / size)
     return [text[i * size : (i + 1) * size] for i in range(iterations)]
 
 
 def transaction_descriptions(transactions: list) -> list:
+    """Возвращает описание транзакций"""
     return [x.get("description", None) for x in transactions]
 
 
 def filter_by_currency(transactions: list, currency_code: str) -> Generator[dict, None, None]:
+    """Фильтрует транзакции по коду валюты"""
     filtered_transactions = filter(
         lambda x: x.get("operationAmount", {}).get("currency", {}).get("code", {}) == currency_code, transactions
     )
