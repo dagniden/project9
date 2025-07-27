@@ -22,7 +22,9 @@ def transaction_descriptions() -> None:
     pass
 
 
-def filter_by_currency(transactions: list, currency: str) -> Generator[list[dict], None, None]:
-    filtered_transactions = filter(lambda x: x.get("currency") == currency, transactions)
+def filter_by_currency(transactions: list, currency_code: str) -> Generator[dict, None, None]:
+    filtered_transactions = filter(
+        lambda x: x.get("operationAmount", {}).get("currency", {}).get("code", {}) == currency_code, transactions
+    )
     for item in filtered_transactions:
         yield item

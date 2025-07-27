@@ -20,5 +20,5 @@ def test_transaction_descriptions() -> None:
 
 def test_filter_by_currency(transactions: list[dict]) -> None:
     usd_transactions = list(filter_by_currency(transactions, "USD"))
-    assert all(transaction["currency"] == "USD" for transaction in usd_transactions)
+    assert all(transaction["operationAmount"]["currency"]["code"] == "USD" for transaction in usd_transactions)
     assert len(usd_transactions) == 3
