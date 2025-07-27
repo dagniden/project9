@@ -14,8 +14,10 @@ def test_card_number_generator() -> None:
         assert next(cards)  # Проверка завершения генератора
 
 
-def test_transaction_descriptions() -> None:
-    transaction_descriptions()
+def test_transaction_descriptions(transactions: list) -> None:
+    descriptions = transaction_descriptions(transactions)
+    assert all(isinstance(x, str) for x in descriptions)
+    assert all(isinstance(x, str) for x in descriptions)
 
 
 def test_filter_by_currency(transactions: list[dict]) -> None:
