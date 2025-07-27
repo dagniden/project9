@@ -20,9 +20,11 @@ def split_groups(text: str, size: int) -> list[str]:
     return [text[i * size : (i + 1) * size] for i in range(iterations)]
 
 
-def transaction_descriptions(transactions: list) -> list:
+def transaction_descriptions(transactions: list) -> Generator[str, None, None]:
     """Возвращает описание транзакций"""
-    return [x.get("description", None) for x in transactions]
+    descriptions = [x.get("description", None) for x in transactions]
+    for item in descriptions:
+        yield item
 
 
 def filter_by_currency(transactions: list, currency_code: str) -> Generator[dict, None, None]:

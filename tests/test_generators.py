@@ -15,10 +15,10 @@ def test_card_number_generator() -> None:
 
 
 def test_transaction_descriptions(transactions: list) -> None:
-    descriptions = transaction_descriptions(transactions)
+    descriptions = list(transaction_descriptions(transactions))
     assert all(isinstance(x, str) for x in descriptions)
 
-    empty_descriptions = transaction_descriptions([])
+    empty_descriptions = list(transaction_descriptions([]))
     assert empty_descriptions == []
 
 
