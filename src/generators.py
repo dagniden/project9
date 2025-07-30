@@ -1,0 +1,36 @@
+from typing import Generator
+
+
+def card_number_generator(start: int, end: int) -> Generator[str, None, None]:
+    """Генерирует номера карт от start до end, дополненные до 16 цифр и разделённые по 4."""
+    for item in range(start, end):
+        card_nums = str(item)
+        nums_len = len(card_nums)
+        zeros_amount = 16 - nums_len
+        lead_zeros = "".join(["0" for _ in range(zeros_amount)])
+        card = lead_zeros + card_nums
+        card_groups = split_groups(card, 4)
+        card = " ".join(card_groups)
+        yield card
+
+
+def split_groups(text: str, size: int) -> list[str]:
+    """Разбивает текст на группы указанного размера."""
+    iterations = int(len(text) / size)
+    return [text[i * size : (i + 1) * size] for i in range(iterations)]
+
+
+def transaction_descriptions(transactions: list) -> Generator[str, None, None]:
+    """Возвращает описание транзакций"""
+    descriptions = [x.get("description", None) for x in transactions]
+    for item in descriptions:
+        yield item
+
+
+def filter_by_currency(transactions: list, currency_code: str) -> Generator[dict, None, None]:
+    """Фильтрует транзакции по коду валюты"""
+    filtered_transactions = filter(
+        lambda x: x.get("operationAmount", {}).get("currency", {}).get("code", {}) == currency_code, transactions
+    )
+    for item in filtered_transactions:
+        yield item
