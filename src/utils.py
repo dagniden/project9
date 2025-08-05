@@ -1,5 +1,6 @@
-import os
 import json
+import os
+
 from src.external_api import convert_currency
 
 
@@ -14,7 +15,7 @@ def get_transactions_from_json(filename: str) -> list:
                 transactions_obj = json.load(file)
             except json.JSONDecodeError:
                 return []
-        if type(transactions_obj) == list:
+        if type(transactions_obj) is list:
             return transactions_obj
         else:
             return []
@@ -39,18 +40,3 @@ def get_transaction_amount_rub(transaction: dict) -> float:
                 return amount_float
         except ValueError:
             return -1
-
-
-
-
-if __name__ == "__main__":
-    test_data = {
-        "id": 41428829,
-        "state": "EXECUTED",
-        "date": "2019-07-03T18:35:29.512364",
-        "operationAmount": {"amount": "8221.37", "currency": {"name": "USD", "code": "USD"}},
-        "description": "Перевод организации",
-        "from": "MasterCard 7158300734726758",
-        "to": "Счет 35383033474447895560",
-    }
-    print(get_transaction_amount_rub(test_data))

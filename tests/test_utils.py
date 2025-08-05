@@ -1,8 +1,8 @@
-import json
-from unittest.mock import Mock, patch
 
-from src.utils import get_transactions_from_json, get_transaction_amount_rub
 import os
+from unittest.mock import patch
+
+from src.utils import get_transactions_from_json
 
 
 def test_get_transactions_from_json():
@@ -12,7 +12,7 @@ def test_get_transactions_from_json():
     file_path = os.path.join(data_dir, filename)
 
     transactions_obj = get_transactions_from_json(file_path)
-    assert type(transactions_obj) == list
+    assert type(transactions_obj) is list
 
 
 def test_get_transactions_from_json_invalid_file():
