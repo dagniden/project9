@@ -1,7 +1,7 @@
 import json
 from unittest.mock import Mock, patch
 
-from src.utils import get_transactions_from_json
+from src.utils import get_transactions_from_json, get_transaction_amount_rub
 import os
 
 
@@ -23,7 +23,6 @@ def test_get_transactions_from_json_invalid_file():
 
     transactions_obj = get_transactions_from_json(file_path)
     assert transactions_obj == []
-
 
 
 def test_get_transactions_from_json_invalid_data():
