@@ -19,6 +19,7 @@ mypy = "^1.16.0"
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4.1"
 pytest-cov = "^6.2.1"
+requests = "^2.32.4"
 
 [build-system]
 requires = ["poetry-core"]
