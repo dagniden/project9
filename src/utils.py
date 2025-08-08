@@ -20,6 +20,7 @@ def get_transactions_from_json(file_path: str) -> list:
 
 
 def get_transaction_amount_rub(transaction: dict) -> float:
+    """ Возвращает сумму операции в рублях, конвертируя при необходимости """
     operation = transaction.get("operationAmount", {})
     currency_code = operation.get("currency", {}).get("code", "")
     amount = operation.get("amount", "")
