@@ -21,9 +21,10 @@ def test_convert_currency_missing_api_key(monkeypatch) -> None:
         convert_currency(100, "USD")
 
 
-def test_convert_currency_failed_status() -> None:
+@pytest.mark.parametrize("status", [401, 403, 500])
+def test_convert_currency_failed_status(status: str) -> None:
     mock_response = Mock()
-    mock_response.status_code = 500
+    mock_response.status_code = status
 
     with patch("requests.get", return_value=mock_response):
         with pytest.raises(ValueError, match="Failed to get conversion from external API"):
