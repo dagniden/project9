@@ -8,6 +8,8 @@
 * `masks.py` — маскирование номеров карт и счетов для отображения.
 * `widget.py` — набор функций виджета.
 * `decorators.py` — декораторы для логирования выполнения функций.
+* `external_api.py` — функция конвертации валют через внешний API.
+* `utils.py` — загрузка транзакций из JSON и вычисление суммы в рублях.
 
 ## Возможности
 
@@ -35,6 +37,15 @@
 * **Фильтрация по валюте**
   `filter_by_currency` возвращает транзакции с указанным кодом валюты.
 
+* **Конвертация суммы валюты в рубли**
+  `get_amount_rub` конвертирует сумму из одной валюты в другую через внешний API.
+
+* **Загрузка транзакций из JSON**
+  `get_transactions_from_json`  загружает список транзакций из JSON-файла по указанному пути.
+
+* **Получение суммы операции в рублях**
+  `get_transaction_amount_rub` возвращает сумму операции в рублях, конвертируя при необходимости из валют USD или EUR.
+
 * **Логирование выполнения функций**
   Декоратор `log` фиксирует время начала и окончания работы функции, а также записывает успешный результат или ошибку в консоль или файл.
 
@@ -45,6 +56,14 @@ git clone git@github.com:dagniden/project9.git
 poetry install
 ```
 
+## Конфигурация
+Для корректной работы конвертации валют необходимо задать API ключ внешнего сервиса.
+
+Создайте файл .env на основе шаблона .env.example и укажите в нём ваш API ключ:
+```ini
+# Укажите реальный apikey для вызова api.apilayer.com/exchangerates_data/convert
+API_KEY=SomeAPIKey
+```
 ## Пример использования
 
 ```python
@@ -52,21 +71,26 @@ from processing import filter_by_state, sort_by_date
 from masks import get_mask_card_number, get_mask_account
 from generators import card_number_generator, transaction_descriptions, filter_by_currency
 from decorators import log
+from utils import get_transactions_from_json, get_transaction_amount_rub
+from external_api import get_amount_rub
 
 @log("log.txt")
 def example_func(x, y):
     return x + y
 
-transactions = [
-    {"id": 1, "state": "EXECUTED", "date": "2022-01-01T10:00:00"},
-    {"id": 2, "state": "CANCELED", "date": "2022-01-02T10:00:00"},
-]
+transactions = get_transactions_from_json("data/transactions.json")
 
 executed = filter_by_state(transactions)
 sorted_tx = sort_by_date(executed)
 
 masked_card = get_mask_card_number(1234567812345678)
 masked_account = get_mask_account(40817810400001234567)
+
+# Конвертация суммы из USD в RUB через API
+converted_amount = get_amount_rub(100, "USD")
+
+# Получение суммы операции в рублях с учётом конвертации
+amount_rub = get_transaction_amount_rub(transactions[0])
 
 # Генерация номеров карт
 for card in card_number_generator(1, 3):
@@ -86,6 +110,7 @@ usd_transactions = list(filter_by_currency(transactions, "USD"))
 # Вызов функции с логированием
 example_func(1, 2)
 # Лог будет сохранён в data/log.txt 
+ 
 ```
 
 ## Тестирование
