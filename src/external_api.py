@@ -1,6 +1,8 @@
 import os
+
 import requests
 from dotenv import load_dotenv
+
 
 def convert_currency(amount: float, currency_from: str, currency_to: str = "RUB"):
     load_dotenv()
@@ -27,6 +29,7 @@ def convert_currency(amount: float, currency_from: str, currency_to: str = "RUB"
         raise ValueError("No data from conversion with external API")
 
     return result_amount
+
 
 if __name__ == "__main__":
     print(convert_currency(amount=8463.45, currency_from="USD"))
