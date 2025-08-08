@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def convert_currency(amount: float, currency_from: str, currency_to: str = "RUB") -> float:
+def get_amount_rub(amount: float, currency_from: str, currency_to: str = "RUB") -> float:
     api_key = os.getenv("API_KEY")
 
     if not api_key:
@@ -28,8 +28,8 @@ def convert_currency(amount: float, currency_from: str, currency_to: str = "RUB"
     if result_amount is None:
         raise ValueError("No data from conversion with external API")
 
-    return result_amount
+    return float(result_amount)
 
 
 if __name__ == "__main__":
-    print(convert_currency(amount=8463.45, currency_from="USD"))
+    print(get_amount_rub(amount=8463.45, currency_from="USD"))

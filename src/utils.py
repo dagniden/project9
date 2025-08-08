@@ -1,6 +1,6 @@
 import json
 
-from src.external_api import convert_currency
+from src.external_api import get_amount_rub
 
 
 def get_transactions_from_json(file_path: str) -> list:
@@ -20,19 +20,18 @@ def get_transactions_from_json(file_path: str) -> list:
 
 
 def get_transaction_amount_rub(transaction: dict) -> float:
-    currency_code = transaction.get("operationAmount", {}).get("currency", {}).get("code", "")
-    amount = transaction.get("operationAmount", {}).get("amount", "")
+    operation = transaction.get("operationAmount", {})
+    currency_code = operation.get("currency", {}).get("code", "")
+    amount = operation.get("amount", "")
 
     if amount == "":
-        return -1
-    else:
-        try:
-            amount_float = float(amount)
-            if currency_code in ("USD", "EUR"):
-                amount_rub = convert_currency(amount_float, currency_code)
+        raise ValueError("Invalid amount")
 
-                return amount_rub
-            else:
-                return amount_float
-        except ValueError:
-            return -1
+    try:
+        amount_float = float(amount)
+        if currency_code in ("USD", "EUR"):
+            return get_amount_rub(amount_float, currency_code)
+        else:
+            return amount_float
+    except ValueError:
+        raise ValueError("Invalid amount")

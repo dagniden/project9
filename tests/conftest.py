@@ -85,7 +85,7 @@ def transactions() -> list:
 
 
 @pytest.fixture
-def data_dir():
+def data_dir() -> str:
     current_dir = os.path.dirname(os.path.abspath(__file__))
     data_dir = os.path.join(current_dir, "..", "data")
     return data_dir
