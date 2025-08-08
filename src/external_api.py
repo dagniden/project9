@@ -3,11 +3,11 @@ import os
 import requests
 from dotenv import load_dotenv
 
+load_dotenv()
 
-def convert_currency(amount: float, currency_from: str, currency_to: str = "RUB"):
-    load_dotenv()
+
+def convert_currency(amount: float, currency_from: str, currency_to: str = "RUB") -> float:
     api_key = os.getenv("API_KEY")
-    print("API KEY:", api_key)
 
     if not api_key:
         raise ValueError("API key not found in environment variables.")
@@ -25,7 +25,7 @@ def convert_currency(amount: float, currency_from: str, currency_to: str = "RUB"
         raise ValueError("Failed to get conversion from external API")
 
     result_amount = response.json().get("result")
-    if not result_amount:
+    if result_amount is None:
         raise ValueError("No data from conversion with external API")
 
     return result_amount

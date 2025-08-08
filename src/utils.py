@@ -1,5 +1,4 @@
 import json
-import os
 
 from src.external_api import convert_currency
 
