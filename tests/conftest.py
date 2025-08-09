@@ -86,7 +86,7 @@ def transactions() -> list:
 
 @pytest.fixture
 def data_dir() -> str:
-    """ Возвращает путь к директории с данными """
+    """Возвращает путь к директории с данными"""
     current_dir = os.path.dirname(os.path.abspath(__file__))
     data_dir = os.path.join(current_dir, "..", "data")
     return data_dir
