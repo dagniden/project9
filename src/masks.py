@@ -36,7 +36,7 @@ def get_mask_card_number(card_number: int) -> str:
     blocks[2] = "****"
 
     result = " ".join(blocks)
-    logger.info(f"Successfully masked card number: {result} for card number: {card_number}")
+    logger.debug(f"Successfully masked card number: {result} for card number: {card_number}")
     return result
 
 
@@ -54,5 +54,5 @@ def get_mask_account(account_number: int) -> str:
         raise IndexError(msg)
 
     result = "**" + account_number_str[-4:]
-    logger.info(f"Successfully masked account number: {result} for account number: {account_number}")
+    logger.debug(f"Successfully masked account number: {result} for account number: {account_number}")
     return result
