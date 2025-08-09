@@ -66,7 +66,7 @@
 ```bash
 git clone git@github.com:dagniden/project9.git
 poetry install
-
+```
 
 ## Конфигурация
 Для корректной работы конвертации валют необходимо задать API ключ внешнего сервиса.
