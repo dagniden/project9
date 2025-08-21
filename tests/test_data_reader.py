@@ -1,17 +1,40 @@
-from src.data_reader import get_transactions_xls, get_transactions_csv
-from unittest.mock import Mock, patch
+import os
+from unittest.mock import MagicMock, patch
 
-import pandas as pd
+import pytest
+
+from src.data_reader import get_transactions_csv, get_transactions_xls
 
 
-def test_get_transactions_csv() -> None:
-    sample_dict = {'PassengerId': [1, 2, 3, 4, 5],
-                   'Survived': [0, 1, 1, 1, 0]}
+@patch("pandas.read_csv")
+def test_get_transactions_csv_mock(mock_read_csv: MagicMock, transactions_df) -> None:
+    mock_read_csv.return_value = transactions_df
 
-    df = pd.DataFrame(sample_dict)
+    result = get_transactions_csv("test.file")
+    expected = transactions_df.to_dict(orient="records")
 
-    with patch('pandas.read_csv', return_value=df):
-        result = get_transactions_csv('test.file')
+    assert result == expected
+    mock_read_csv.assert_called_once_with("test.file")
 
-        expected = df.to_dict(orient='records')
-        assert result == expected
+
+def test_get_transactions_csv_invalid_file(data_dir):
+    file_path = os.path.join(data_dir, "invalid.csv")
+    with pytest.raises(FileNotFoundError):
+        get_transactions_csv(file_path)
+
+
+@patch("pandas.read_excel")
+def test_get_transactions_xls_mock(mock_read_xls: MagicMock, transactions_df) -> None:
+    mock_read_xls.return_value = transactions_df
+
+    result = get_transactions_xls("test.file")
+    expected = transactions_df.to_dict(orient="records")
+
+    assert result == expected
+    mock_read_xls.assert_called_once_with("test.file")
+
+
+def test_get_transactions_xls_invalid_file(data_dir):
+    file_path = os.path.join(data_dir, "invalid.xlsx")
+    with pytest.raises(FileNotFoundError):
+        get_transactions_xls(file_path)

@@ -1,6 +1,7 @@
 import os
 import random
 
+import pandas as pd
 import pytest
 
 CARD_NUMBER_LENGTH = 16
@@ -90,3 +91,17 @@ def data_dir() -> str:
     current_dir = os.path.dirname(os.path.abspath(__file__))
     data_dir = os.path.join(current_dir, "..", "data")
     return data_dir
+
+
+@pytest.fixture
+def transactions_df():
+    sample_dict = {
+        "id": [1, 2, 3, 4],
+        "state": ["EXECUTED", "PENDING", "EXECUTED", "PENDING"],
+        "currency_code": ["EUR", "RUB", "SEK", "RUB"],
+    }
+    # sample_dict = {'PassengerId': [1, 2, 3, 4, 5],
+    #                'Survived': [0, 1, 1, 1, 0]}
+
+    # df = pd.DataFrame(sample_dict)
+    return pd.DataFrame(sample_dict)
