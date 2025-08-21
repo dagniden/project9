@@ -94,14 +94,11 @@ def data_dir() -> str:
 
 
 @pytest.fixture
-def transactions_df():
+def transactions_df() -> pd.DataFrame:
     sample_dict = {
         "id": [1, 2, 3, 4],
         "state": ["EXECUTED", "PENDING", "EXECUTED", "PENDING"],
         "currency_code": ["EUR", "RUB", "SEK", "RUB"],
     }
-    # sample_dict = {'PassengerId': [1, 2, 3, 4, 5],
-    #                'Survived': [0, 1, 1, 1, 0]}
 
-    # df = pd.DataFrame(sample_dict)
     return pd.DataFrame(sample_dict)
