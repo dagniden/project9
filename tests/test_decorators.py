@@ -5,7 +5,7 @@ from _pytest.capture import CaptureFixture
 
 from src.decorators import log
 
-
+# todo: удалить и обновить под новый формат сообщений
 # def test_log_console(capsys: CaptureFixture[str]) -> None:
 #     @log()
 #     def my_function(x: int, y: int) -> int:
