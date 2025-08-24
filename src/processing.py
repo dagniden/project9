@@ -3,8 +3,6 @@
 import re
 from collections import Counter
 
-from src.utils import get_transactions_from_json
-
 
 def filter_by_state(transactions_list: list[dict], state: str = "EXECUTED") -> list[dict]:
     """Возвращает новый список словарей, отфильтрованный по ключу state"""
@@ -14,7 +12,7 @@ def filter_by_state(transactions_list: list[dict], state: str = "EXECUTED") -> l
 
 def sort_by_date(transactions_list: list[dict], descending: bool = True) -> list[dict]:
     """Возвращает новый список словарей, отсортированный по ключу date"""
-    sorted_transactions_list = sorted(transactions_list, key=lambda x: x.get("date", ""), reverse=descending)
+    sorted_transactions_list = sorted(transactions_list, key=lambda x: str(x.get("date", "")), reverse=descending)
     return sorted_transactions_list
 
 

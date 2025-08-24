@@ -2,7 +2,7 @@
 
 import pytest
 
-from src.processing import filter_by_state, sort_by_date, process_bank_search, process_bank_operations
+from src.processing import filter_by_state, process_bank_operations, process_bank_search, sort_by_date
 
 
 def test_filter_by_state(transactions: list) -> None:
