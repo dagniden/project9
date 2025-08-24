@@ -2,6 +2,7 @@
 
 import re
 from collections import Counter
+from src.decorators import log
 
 
 def filter_by_state(transactions_list: list[dict], state: str = "EXECUTED") -> list[dict]:
