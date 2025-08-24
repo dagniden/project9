@@ -1,8 +1,9 @@
 """Модуль с функциями для работы с транзакциями"""
+
 import re
-from src.utils import get_transactions_from_json
-import json
 from collections import Counter
+
+from src.utils import get_transactions_from_json
 
 
 def filter_by_state(transactions_list: list[dict], state: str = "EXECUTED") -> list[dict]:
@@ -18,15 +19,13 @@ def sort_by_date(transactions_list: list[dict], descending: bool = True) -> list
 
 
 def process_bank_search(data: list[dict], search: str) -> list[dict]:
-    pattern = rf'{search}'
+    """Фильтрует словарь по переданной строке поиска"""
+    pattern = re.compile(search, flags=re.IGNORECASE)
     result = []
 
     for item in data:
         for key, value in item.items():
-            res_keys = re.search(pattern, str(key), flags=re.IGNORECASE)
-            res_values = re.search(pattern, str(value), flags=re.IGNORECASE)
-
-            if res_keys or res_values:
+            if pattern.search(str(key)) or pattern.search(str(value)):
                 result.append(item)
                 break  # переход к следующему item в data
 
@@ -34,24 +33,7 @@ def process_bank_search(data: list[dict], search: str) -> list[dict]:
 
 
 def process_bank_operations(data: list[dict], categories: list) -> dict:
-    categories = [item.get('description') for item in data if item.get('description') in categories]
-    counted = Counter(categories)
-    return counted
-
-
-def get_categories(data: list[dict]) -> list:
-    categories = [item.get('description') for item in data ]
-    return categories
-
-
-if __name__ == "__main__":
-    data_dict = get_transactions_from_json('operations.json')
-
-
-    # all_categories = get_categories(data_dict)
-    # print(all_categories)
-    # counted = Counter(all_categories)
-    # print(counted)
-
-    counted = process_bank_operations(data_dict, ['Перевод организации', 'Открытие вклада'])
-    print(counted)
+    """Возвращается словарь с подсчитанным количеством переданных категорий"""
+    filtered_categories = [item.get("description") for item in data if item.get("description") in categories]
+    counted_categories = Counter(filtered_categories)
+    return counted_categories

@@ -2,7 +2,7 @@
 
 import pytest
 
-from src.processing import filter_by_state, sort_by_date
+from src.processing import filter_by_state, sort_by_date, process_bank_search, process_bank_operations
 
 
 def test_filter_by_state(transactions: list) -> None:
@@ -54,3 +54,18 @@ def test_sort_by_date(transactions: list) -> None:
 )
 def test_sort_by_date_invalid(invalid_transactions: list, expected: list) -> None:
     assert sort_by_date(invalid_transactions) == expected
+
+
+def test_process_bank_search(transactions: list) -> None:
+    result = process_bank_search(transactions, "Перевод организации")
+    assert len(result) == 2
+
+
+def test_process_bank_search_empty() -> None:
+    result = process_bank_search([], "Перевод организации")
+    assert result == []
+
+
+def test_process_bank_operations(transactions: list) -> None:
+    result = process_bank_operations(transactions, ["Перевод организации"])
+    assert result['Перевод организации'] == 2
