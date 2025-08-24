@@ -15,7 +15,7 @@ def test_get_transactions_csv_mock(mock_read_csv: MagicMock, transactions_df: pd
     expected = transactions_df.to_dict(orient="records")
 
     assert result == expected
-    mock_read_csv.assert_called_once_with("test.file")
+    mock_read_csv.assert_called_once_with("test.file", encoding="utf-8", sep=";")
 
 
 def test_get_transactions_csv_invalid_file(data_dir: str) -> None:
