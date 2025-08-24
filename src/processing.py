@@ -2,6 +2,7 @@
 import re
 from src.utils import get_transactions_from_json
 import json
+from collections import Counter
 
 
 def filter_by_state(transactions_list: list[dict], state: str = "EXECUTED") -> list[dict]:
@@ -27,16 +28,30 @@ def process_bank_search(data: list[dict], search: str) -> list[dict]:
 
             if res_keys or res_values:
                 result.append(item)
-                break # переход к следующему item в data
+                break  # переход к следующему item в data
 
     return result
 
 
+def process_bank_operations(data: list[dict], categories: list) -> dict:
+    categories = [item.get('description') for item in data if item.get('description') in categories]
+    counted = Counter(categories)
+    return counted
+
+
+def get_categories(data: list[dict]) -> list:
+    categories = [item.get('description') for item in data ]
+    return categories
 
 
 if __name__ == "__main__":
-    json_data = get_transactions_from_json('operations_short.json')
-    print(json_data)
+    data_dict = get_transactions_from_json('operations.json')
 
-    filtered_list = process_bank_search(json_data, 'зеленый')
-    print(filtered_list)
+
+    # all_categories = get_categories(data_dict)
+    # print(all_categories)
+    # counted = Counter(all_categories)
+    # print(counted)
+
+    counted = process_bank_operations(data_dict, ['Перевод организации', 'Открытие вклада'])
+    print(counted)
