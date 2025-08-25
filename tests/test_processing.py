@@ -68,4 +68,4 @@ def test_process_bank_search_empty() -> None:
 
 def test_process_bank_operations(transactions: list) -> None:
     result = process_bank_operations(transactions, ["Перевод организации"])
-    assert result['Перевод организации'] == 2
+    assert result["Перевод организации"] == 2

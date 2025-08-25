@@ -2,9 +2,11 @@
 
 import re
 from collections import Counter
+
 from src.decorators import log
 
 
+@log("processing.log")
 def filter_by_state(transactions_list: list[dict], state: str = "EXECUTED") -> list[dict]:
     """Возвращает новый список словарей, отфильтрованный по ключу state"""
     filtered_transactions = [x for x in transactions_list if x.get("state", None) == state]

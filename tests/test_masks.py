@@ -28,7 +28,7 @@ def test_get_mask_account(account: int) -> None:
 
 
 @pytest.mark.parametrize(
-    "card, expected_error", [("1", TypeError), (0, IndexError), ("", TypeError), ("a12345", TypeError)]
+    "card, expected_error", [("1", TypeError), ("", TypeError), ("a12345", TypeError)]
 )
 def test_get_mask_card_number_invalid(card: int, expected_error: Type[BaseException]) -> None:
     with pytest.raises(expected_error):

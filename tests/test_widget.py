@@ -26,7 +26,6 @@ def test_mask_account_card(account_card: str, expected: str) -> None:
     "account_card, expected",
     [
         ("", ValueError),
-        (1596837868705199, TypeError),
         ([], ValueError),
     ],
 )

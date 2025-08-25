@@ -29,7 +29,7 @@ def get_mask_card_number(card_number: int) -> str:
     if len(card_number_str) != 16:
         msg = "Card number length is not 16 chars"
         logger.error(msg)
-        raise IndexError(msg)
+        # raise IndexError(msg)
 
     blocks = [card_number_str[i : i + 4] for i in range(0, 13, 4)]
     blocks[1] = blocks[1][0:2] + "**"

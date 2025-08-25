@@ -21,7 +21,7 @@ def get_logger(log_filename: str) -> logging.Logger:
 
     # чтобы не дублировались хендлеры при многократном вызове
     if not logger.handlers:
-        file_handler = logging.FileHandler(log_file, encoding="utf-8", mode="a+")
+        file_handler = logging.FileHandler(log_file, encoding="utf-8", mode="w")
         formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s: %(message)s")
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
@@ -43,7 +43,7 @@ def log(filename: str = "") -> Callable[[Callable[P, R]], Callable[P, R]]:
                 result = func(*args, **kwargs)
                 logger.info(f"End {func.__name__} → result={result}")
                 return result
-            except Exception as e:
+            except Exception:
                 logger.exception(f"Error in {func.__name__}")
                 raise
 

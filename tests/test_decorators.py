@@ -1,31 +1,8 @@
 import os
 
 import pytest
-from _pytest.capture import CaptureFixture
 
 from src.decorators import log
-
-# todo: удалить и обновить под новый формат сообщений
-# def test_log_console(capsys: CaptureFixture[str]) -> None:
-#     @log()
-#     def my_function(x: int, y: int) -> int:
-#         return x + y
-#
-#     my_function(1, 2)
-#     captured = capsys.readouterr()
-#     assert "my_function ok\n" in captured.out
-#
-#
-# def test_log_invalid_console(capsys: CaptureFixture[str]) -> None:
-#     @log()
-#     def func_with_error() -> None:
-#         raise ValueError
-#
-#     with pytest.raises(ValueError):
-#         func_with_error()
-#
-#     captured = capsys.readouterr()
-#     assert "func_with_error error: <class 'ValueError'>. Inputs: (), {}\n" in captured.out
 
 
 def test_log_file() -> None:

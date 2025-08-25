@@ -11,6 +11,7 @@ def mask_account_card(account_string: str) -> str:
     if account_string == "":
         raise ValueError
 
+    account_string = str(account_string)
     account_digits_list = [x for x in account_string if x.isdigit()]
     account_digits = int("".join(account_digits_list))
     account_prefix = "".join([x for x in account_string if x.isalpha() or x == " "]).strip()
