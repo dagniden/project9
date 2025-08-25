@@ -33,6 +33,7 @@ def main() -> None:
           "Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING\n")
     user_filter_state_choice = get_user_input("Ваш выбор: ", ['executed', 'canceled', 'pending'])
     data = filter_by_state(data, user_filter_state_choice.upper())
+    print(f'Операции отфильтрованы по статусу "{user_filter_state_choice.upper()}"')
 
     print("Отсортировать операции по дате? Да/Нет\n")
     user_sort_choice = get_user_input("Ваш выбор: ", ['да', 'нет'])
@@ -47,8 +48,7 @@ def main() -> None:
     print("Выводить только рублевые транзакции? Да/Нет\n")
     user_filter_rub_choice = get_user_input("Ваш выбор: ", ['да', 'нет'])
     if user_filter_rub_choice == 'да':
-        filter_by_currency(data, "RUB")
-
+        data = list(filter_by_currency(data, "RUB"))
 
     print("Отфильтровать список транзакций по определенному слову в описании? Да/Нет")
     user_filter_description_choice = get_user_input("Ваш выбор: ", ['да', 'нет'])
@@ -68,6 +68,10 @@ def main() -> None:
                 tr_desc = result['description']
                 tr_from = mask_account_card(result['from'])
                 tr_to = mask_account_card(result['to'])
+                if user_file_choice == 1:
+                    tr_currency = result.get('operationAmount', {}).get('currency', {}).get('name')
+                elif user_file_choice == 2 or user_file_choice == 3:
+                    tr_currency = result.get('currency', None)
 
                 if user_file_choice == 1:
                     tr_amount = result.get('operationAmount', {}).get('amount', None)
@@ -78,7 +82,7 @@ def main() -> None:
 
             print(f"{tr_date} {tr_desc}\n"
                   f"{tr_from} -> {tr_to}\n"
-                  f"Сумма: {tr_amount}\n\n")
+                  f"Сумма: {tr_amount} {tr_currency}\n\n")
 
 
 def get_user_input(message: str, correct_choices: list) -> Any:
