@@ -35,7 +35,7 @@ def log(filename: str = "") -> Callable[[Callable[P, R]], Callable[P, R]]:
 
     def decorator(func: Callable[P, R]) -> Callable[P, R]:
         @wraps(func)
-        def wrapper(*args, **kwargs) -> R:
+        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
             start_msg = f"Start {func.__name__} with args={args}, kwargs={kwargs}"
             logger.info(start_msg)
 
