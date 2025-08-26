@@ -32,5 +32,5 @@ def get_amount_rub(amount: float, currency_from: str, currency_to: str = "RUB") 
     return float(result_amount)
 
 
-if __name__ == "__main__":
-    print(get_amount_rub(amount=8463.45, currency_from="USD"))
+# if __name__ == "__main__":
+#     print(get_amount_rub(amount=8463.45, currency_from="USD"))
